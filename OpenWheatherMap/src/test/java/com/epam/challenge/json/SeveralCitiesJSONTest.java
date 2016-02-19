@@ -3,7 +3,9 @@ package com.epam.challenge.json;
 import org.codehaus.jettison.json.JSONObject;
 import org.junit.Test;
 
-public class SeveralCitiesJSONTest extends JSONTest {
+import com.epam.challenge.ISeveralCitiesTest;
+
+public class SeveralCitiesJSONTest extends JSONTest implements ISeveralCitiesTest {
 	@Test
 	public void byRectZoneTest() throws Exception {
 		JSONObject responseObject = getResponseObject("/box/city", new String[][]{

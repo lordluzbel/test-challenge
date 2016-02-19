@@ -4,42 +4,44 @@ import org.codehaus.jettison.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class OneCityJSONTest extends JSONTest {
+import com.epam.challenge.IOneCityTest;
+
+public class OneCityJSONTest extends JSONTest implements IOneCityTest {
 	@Test
 	public void testByCityName() throws Exception{
 		JSONObject responseObject = getResponseObject("/weather", new String[][]{
-			{"q","London,uk"}
+				{"q","London,uk"}
 		});
-		
+
 		assertValidResponse(responseObject);
 	}
-	
+
 	@Test
 	public void testByCityId() throws Exception{
 		JSONObject responseObject = getResponseObject("/weather", new String[][]{
-			{"id","2172797"}
+				{"id","2172797"}
 		});
-		
+
 		assertValidResponse(responseObject);
 	}
-	
+
 	@Test
 	public void testByGeoCoordinates() throws Exception{
 		JSONObject responseObject = getResponseObject("/weather", new String[][]{
-			{"lat","35"},
-			{"lon","139"}
+				{"lat","35"}
+				,{"lon","139"}
 		});
-		
+
 		assertValidResponse(responseObject);
 	}
-	
+
 	@Test
 	public void testByZipCode() throws Exception{
 		JSONObject responseObject = getResponseObject("/weather", new String[][]{
-			{"zip","94040,us"}
+				{"zip","94040,us"}
 		});
 		Assert.assertNotNull(responseObject);
-		
+
 		assertValidResponse(responseObject);
 	}
 }
