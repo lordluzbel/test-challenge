@@ -1,10 +1,9 @@
 package com.epam.challenge.xml;
 
 
+import org.jdom2.Document;
 import org.junit.Assert;
 import org.junit.Test;
-import org.w3c.dom.Document;
-
 import com.epam.challenge.IOneCityTest;
 
 public class OneCityXmlTest extends XmlTest implements IOneCityTest{

@@ -2,13 +2,10 @@ package com.epam.challenge.xml;
 
 import java.io.StringReader;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
 import org.junit.Assert;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
 
 import com.epam.challenge.BaseTest;
 
@@ -20,11 +17,9 @@ public class XmlTest extends BaseTest<Document> {
 		Document document = null;
 		
 		try {
-			DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = documentBuilderFactory.newDocumentBuilder();
-			StringReader reader = new StringReader(response);		
-			
-			document = builder.parse(new InputSource(reader));
+			StringReader reader = new StringReader(response);
+			SAXBuilder builder = new SAXBuilder();
+			document = builder.build(reader);
 		} catch (Exception e) {
 			document = null;
 		} 
@@ -34,34 +29,29 @@ public class XmlTest extends BaseTest<Document> {
 
 	@Override
 	protected void assertValidResponse(Document t) throws Exception {
-		Node node = t.getFirstChild();
-		Assert.assertTrue(node.getNodeName().equals("current"));		
-		node = node.getFirstChild();
-		Assert.assertTrue(node.getNodeName().equals("city"));		
-		node = node.getNextSibling();
-		Assert.assertTrue(node.getNodeName().equals("temperature"));
-		node = node.getNextSibling();
-		Assert.assertTrue(node.getNodeName().equals("humidity"));
-		node = node.getNextSibling();
-		Assert.assertTrue(node.getNodeName().equals("pressure"));
-		node = node.getNextSibling();
-		Assert.assertTrue(node.getNodeName().equals("wind"));
-		node = node.getNextSibling();
-		Assert.assertTrue(node.getNodeName().equals("clouds"));
-		node = node.getNextSibling();
-		Assert.assertTrue(node.getNodeName().equals("visibility"));
-		node = node.getNextSibling();
-		Assert.assertTrue(node.getNodeName().equals("precipitation"));
-		node = node.getNextSibling();
-		Assert.assertTrue(node.getNodeName().equals("weather"));
-		node = node.getNextSibling();
-		Assert.assertTrue(node.getNodeName().equals("lastupdate"));
+		Element root = t.getRootElement();
+		Assert.assertTrue(root.getName().equals("current"));
+				
+		Assert.assertNotNull(root.getChild("city"));		
+		Assert.assertNotNull(root.getChild("temperature"));		
+		Assert.assertNotNull(root.getChild("humidity"));
+		Assert.assertNotNull(root.getChild("pressure"));		
+		Assert.assertNotNull(root.getChild("wind"));		
+		Assert.assertNotNull(root.getChild("clouds"));		
+		Assert.assertNotNull(root.getChild("visibility"));		
+		Assert.assertNotNull(root.getChild("precipitation"));		
+		Assert.assertNotNull(root.getChild("weather"));		
+		Assert.assertNotNull(root.getChild("lastupdate"));
 	}
 
 	@Override
 	protected void assertValidResponseList(Document t) throws Exception {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
+	}
+
+	@Override
+	protected String[] getAccept() {
+		return new String[] {"application/xhtml+xml", "application/xml"};
 	}
 
 }

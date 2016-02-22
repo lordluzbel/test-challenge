@@ -60,6 +60,11 @@ public class JSONTest extends BaseTest<JSONObject> {
 		} while(i < array.length());
 	}
 
+	@Override
+	protected String[] getAccept() {
+		return new String[] {"application/json"};
+	}
+
 	
 
 	
