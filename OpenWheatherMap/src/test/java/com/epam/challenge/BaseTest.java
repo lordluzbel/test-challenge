@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
@@ -18,10 +20,10 @@ public abstract class BaseTest<T> extends JerseyTest{
 	private static final String APPID_PROP = "app.id";
 	private static final String CONFIG_PROPERTIES = "/config.properties";
 	
-	private WebResource webResource;
-	private Properties config;
-	private String appId;
-	private String baseUrl;
+	private static WebResource webResource;
+	private static Properties config;
+	private static String appId;
+	private static String baseUrl;
 	
 	//Each specific test for each response format must implement the below two methods
 	protected abstract T getResponseObject(String path, String[][] parameters);
@@ -32,11 +34,11 @@ public abstract class BaseTest<T> extends JerseyTest{
 	protected AppDescriptor configure() {
 		return new WebAppDescriptor.Builder().build();
 	}
-
-	@Before
-	public void setup() throws IOException{
+	
+	@BeforeClass
+	public static void classSetup() throws IOException{
 		//Loading configuration properties
-		InputStream inputStream = getClass().getResourceAsStream(CONFIG_PROPERTIES);	
+		InputStream inputStream = BaseTest.class.getResourceAsStream(CONFIG_PROPERTIES);	
 		Assert.assertNotNull(inputStream);
 		
 		config = new Properties();
@@ -47,9 +49,14 @@ public abstract class BaseTest<T> extends JerseyTest{
 		
 		appId = config.getProperty(APPID_PROP);
 		Assert.assertFalse(null == appId || appId.isEmpty());
-		
+	}
+
+	@Before
+	public void setup() throws IOException{
 		//Initialize rest service
-		webResource = client().resource(baseUrl);
+		if (null == webResource){
+			webResource = client().resource(baseUrl);
+		}
 	}
 	
 	/**
