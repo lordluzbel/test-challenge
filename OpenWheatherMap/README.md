@@ -1,12 +1,13 @@
 Test Challenge.
+===============
 
-Used Tools
+### Used Tools
 -------------------------------
 JUnit 4
 Jersey Test Framework
 JDom
 
-Supported Test Cases
+### Supported Test Cases
 -------------------------------
 1. Conectivity
 2. Commons Attributes
