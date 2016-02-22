@@ -13,7 +13,8 @@ public class OneCityJSONTest extends JSONTest implements IOneCityTest {
 				{"q","London,uk"}
 		});
 
-		assertValidResponse(responseObject);
+		assertCommonElements(responseObject);
+		Assert.assertEquals(responseObject.get("name"), "London");
 	}
 
 	@Test
@@ -22,7 +23,8 @@ public class OneCityJSONTest extends JSONTest implements IOneCityTest {
 				{"id","2172797"}
 		});
 
-		assertValidResponse(responseObject);
+		assertCommonElements(responseObject);
+		Assert.assertEquals(2172797, responseObject.getInt("id"));
 	}
 
 	@Test
@@ -32,7 +34,11 @@ public class OneCityJSONTest extends JSONTest implements IOneCityTest {
 				,{"lon","139"}
 		});
 
-		assertValidResponse(responseObject);
+		assertCommonElements(responseObject);
+		
+		JSONObject coordinates = responseObject.getJSONObject("coord");
+		Assert.assertEquals(35, Math.round(coordinates.getDouble("lat")));
+		Assert.assertEquals(139, Math.round(coordinates.getDouble("lon")));
 	}
 
 	@Test
@@ -42,6 +48,7 @@ public class OneCityJSONTest extends JSONTest implements IOneCityTest {
 		});
 		Assert.assertNotNull(responseObject);
 
-		assertValidResponse(responseObject);
+		assertCommonElements(responseObject);
+		Assert.assertEquals("Mountain View", responseObject.get("name"));
 	}
 }

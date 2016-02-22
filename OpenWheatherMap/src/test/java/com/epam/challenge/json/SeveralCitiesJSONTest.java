@@ -1,6 +1,8 @@
 package com.epam.challenge.json;
 
+import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.epam.challenge.ISeveralCitiesTest;
@@ -13,7 +15,13 @@ public class SeveralCitiesJSONTest extends JSONTest implements ISeveralCitiesTes
 			{"cluster","yes"}
 		});
 		
-		assertValidResponseList(responseObject);
+		assertCommonElementByCity(responseObject);
+		
+		int counter = responseObject.getInt("cnt");
+		JSONArray array = responseObject.getJSONArray("list");
+		
+		Assert.assertTrue(counter > 0);
+		Assert.assertEquals(counter, array.length());
 	} 
 	
 	@Test
@@ -23,7 +31,13 @@ public class SeveralCitiesJSONTest extends JSONTest implements ISeveralCitiesTes
 			{"units","metric"}
 		});
 		
-		assertValidResponseList(responseObject);
+		assertCommonElementByCity(responseObject);
+		
+		int counter = responseObject.getInt("cnt");
+		JSONArray array = responseObject.getJSONArray("list");
+		
+		Assert.assertTrue(counter > 0);
+		Assert.assertEquals(counter, array.length());
 	} 
 	
 	@Test
@@ -34,6 +48,12 @@ public class SeveralCitiesJSONTest extends JSONTest implements ISeveralCitiesTes
 			{"cnt","10"},
 		});
 		
-		assertValidResponseList(responseObject);
+		assertCommonElementByCity(responseObject);
+		
+		int counter = responseObject.getInt("count");
+		JSONArray array = responseObject.getJSONArray("list");
+		
+		Assert.assertTrue(counter > 0);
+		Assert.assertEquals(counter, array.length());
 	}
 }

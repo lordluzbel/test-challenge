@@ -1,12 +1,12 @@
 package com.epam.challenge;
 
-import java.awt.PageAttributes.MediaType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import org.junit.AfterClass;
+import javax.ws.rs.core.MediaType;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -30,9 +30,8 @@ public abstract class BaseTest<T> extends JerseyTest{
 
 	//Each specific test for each response format must implement the below two methods
 	protected abstract T getResponseObject(String path, String[][] parameters);
-	protected abstract void assertValidResponse(T t) throws Exception;
-	protected abstract void assertValidResponseList(T t) throws Exception;
-	protected abstract String[] getAccept();
+	protected abstract void assertCommonElements(T t) throws Exception;
+	protected abstract void assertCommonElementByCity(T t) throws Exception;
 
 	@Override
 	protected AppDescriptor configure() {
@@ -59,7 +58,10 @@ public abstract class BaseTest<T> extends JerseyTest{
 	public void setup() throws IOException{
 		//Initialize rest service
 		if (null == webResource){
-			webResource = client().resource(baseUrl);			
+			webResource = client().resource(baseUrl);	
+			webResource.accept(MediaType.APPLICATION_JSON, MediaType.APPLICATION_XHTML_XML, MediaType.APPLICATION_XML);
+			webResource.header("Connection", "keep-alive");
+			webResource.header("Cache-Control", "no-cache");
 		}
 	}
 
@@ -71,8 +73,7 @@ public abstract class BaseTest<T> extends JerseyTest{
 	 */
 	protected synchronized String sendRequest(String path, String[] ... params){
 		String response = null;
-		try{
-			webResource.accept(getAccept());
+		try{					
 			response = webResource					
 					.path(path)					
 					.queryParams(convertToParameterMap(params))

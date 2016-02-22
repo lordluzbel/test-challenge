@@ -28,7 +28,7 @@ public class XmlTest extends BaseTest<Document> {
 	}
 
 	@Override
-	protected void assertValidResponse(Document t) throws Exception {
+	protected void assertCommonElements(Document t) throws Exception {
 		Element root = t.getRootElement();
 		Assert.assertTrue(root.getName().equals("current"));
 				
@@ -45,13 +45,7 @@ public class XmlTest extends BaseTest<Document> {
 	}
 
 	@Override
-	protected void assertValidResponseList(Document t) throws Exception {
+	protected void assertCommonElementByCity(Document t) throws Exception {
 		// TODO Auto-generated method stub		
 	}
-
-	@Override
-	protected String[] getAccept() {
-		return new String[] {"application/xhtml+xml", "application/xml"};
-	}
-
 }

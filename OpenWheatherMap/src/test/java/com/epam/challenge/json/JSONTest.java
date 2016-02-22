@@ -23,7 +23,7 @@ public class JSONTest extends BaseTest<JSONObject> {
 	}
 
 	@Override
-	protected void assertValidResponse(JSONObject t) throws Exception{
+	protected void assertCommonElements(JSONObject t) throws Exception{
 		Assert.assertNotNull(t);
 		
 		Assert.assertNotNull(t.get("id"));
@@ -39,7 +39,7 @@ public class JSONTest extends BaseTest<JSONObject> {
 	}
 
 	@Override
-	protected void assertValidResponseList(JSONObject t) throws Exception {
+	protected void assertCommonElementByCity(JSONObject t) throws Exception {
 		JSONArray array = t.getJSONArray("list");
 		Assert.assertNotNull(array);
 		Assert.assertNotSame(array.length(), 0);
@@ -58,14 +58,5 @@ public class JSONTest extends BaseTest<JSONObject> {
 			Assert.assertNotNull(jsonObject.get("weather"));
 			i ++;
 		} while(i < array.length());
-	}
-
-	@Override
-	protected String[] getAccept() {
-		return new String[] {"application/json"};
-	}
-
-	
-
-	
+	}	
 }

@@ -15,7 +15,7 @@ public class OneCityXmlTest extends XmlTest implements IOneCityTest{
 		});
 		Assert.assertNotNull(responseObject);
 
-		assertValidResponse(responseObject);
+		assertCommonElements(responseObject);
 	}
 
 	@Test
@@ -26,7 +26,7 @@ public class OneCityXmlTest extends XmlTest implements IOneCityTest{
 		});
 		Assert.assertNotNull(responseObject);
 
-		assertValidResponse(responseObject);
+		assertCommonElements(responseObject);
 	}
 
 	@Test
@@ -38,7 +38,7 @@ public class OneCityXmlTest extends XmlTest implements IOneCityTest{
 		});
 		Assert.assertNotNull(responseObject);
 
-		assertValidResponse(responseObject);
+		assertCommonElements(responseObject);
 	}
 
 	@Test
@@ -49,6 +49,6 @@ public class OneCityXmlTest extends XmlTest implements IOneCityTest{
 		});
 		Assert.assertNotNull(responseObject);
 
-		assertValidResponse(responseObject);
+		assertCommonElements(responseObject);
 	}
 }
